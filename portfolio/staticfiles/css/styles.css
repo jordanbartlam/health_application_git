@@ -1,0 +1,32 @@
+.login-container {
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.login-form {
+    padding: 5%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    font-weight: 600;
+    color: #333;
+    text-decoration: none;
+}
+
+.login-form h3 {
+    text-align: center;
+    color: #333 ;
+}
+
+.login-container form {
+    padding: 10%;
+}
+
+.btnSubmit {
+    width: 50%;
+    color: #FFFFFF;
+    border-radius: 1rem;
+    margin-top: 5%;
+    padding: 1%;
+    border: none;
+    cursor: pointer;
+    background-color: #0062cc;
+}
