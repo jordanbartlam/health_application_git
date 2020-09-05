@@ -1,0 +1,207 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<div class="container-fluid" style="padding:2%;">
+    <div class="row d-flex justify-content-center text-center">
+        <div class="col-md-12">
+            <h1>Help Page</h1>
+        </div>
+    </div>
+    <div class="row" style="margin-top:1%;">
+        <p>Need some help with using the site? Click on one of the sections listed below for information. If you still can't find an answer send an email to <strong>'jordan.bartlam@yahoo.com'</strong>.</p>
+    </div>
+</div>
+
+<div class="container-fluid" style="margin-top:1%;margin-bottom:6%;">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>- Getting Started -</h4>
+            <div class="accordion" id="accordion2">
+                <div class="accordion-group" style="border-bottom:1px dotted black;border-top:1px dotted black;">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                      Create an Account
+                    </a>
+                  </div>
+                  <div id="collapseOne" class="accordion-body in collapse" style="height: auto; ">
+                    <div class="accordion-inner">
+                        <p>To set up an account first navigate to the login page. Once here, click the 'Create Account' button and input the required information. </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group" style="border-bottom:1px dotted black;">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                      Add an Activity
+                    </a>
+                  </div>
+                  <div id="collapseTwo" class="accordion-body collapse" style="height: 0px; ">
+                    <div class="accordion-inner">
+                        <p>To add an activity, click on the green plus icon on the navbar. From here click on 'Add Activity' from the dropdown list. This will allow you to enter information about a new activity into a form. If this activity has helped avoid paying money for alterantive forms of transport then please enter an estimate of the amount you would expect to have paid. If the activity eg. Gym has no impact on your travel costs, then leave the 'Amount Saved' field at £0.00.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group" style="border-bottom:1px dotted black;">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                      Make a Payment
+                    </a>
+                  </div>
+                  <div id="collapseThree" class="accordion-body collapse" style="height: 0px; ">
+                    <div class="accordion-inner">
+                        <p>Once you have created an activity which has helped you to save money, you can then recognise this saving by making a payment into the group account using your unique user id (eg. Life 1). Details for this are outlined below. This will be held as cash. However, we also present analytics for a portfolio of health technology companies and another for ESG firms. Currently, these are solely informative and are not available for actual investment. They do show how a health or sustainability-based portfolio may perform.</p>
+                        <p><u>Account Details</u></p>
+                        <p><strong>Account Number:</strong> 45561191</p>
+                        <p><strong>Sort Code:</strong> 404761</p>
+                        <p><strong>Reference:</strong> Life {{user.id}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group" style="border-bottom:1px dotted black;">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+                      Make a Withdrawal
+                    </a>
+                  </div>
+                  <div id="collapseFour" class="accordion-body collapse" style="height: 0px; ">
+                    <div class="accordion-inner">
+                        <p>At some point you may need to withdraw cash either from the cash account. To do this click on the green plus icon on the navigation bar and select 'Make Withdrawal'. From here you can then enter the date of withdrawal and the amount you wish to withdraw. Then contact the administrator to specify account details as to where such payment should be made.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group" style="border-bottom:1px dotted black;">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseAdditional">
+                      Update Profile
+                    </a>
+                  </div>
+                  <div id="collapseAdditional" class="accordion-body collapse" style="height: 0px; ">
+                    <div class="accordion-inner">
+                        <p>If you need to update your profile information eg. username, first name etc then click on the user button next to the Life Points logo in the far left of the navbar. You can then press on 'Update Profile' to make changes to the user information.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <h4>- Using the Dashboards -</h4>
+            <div class="accordion2" id="accordion3">
+                <div class="accordion-group" style="border-top:1px dotted black;border-bottom:1px dotted black;">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseFive">
+                      Health Dashboard
+                    </a>
+                  </div>
+                  <div id="collapseFive" class="accordion-body in collapse" style="height: auto; ">
+                    <div class="accordion-inner">
+                        <p>The health dashboard translates information you provide about your activities into useful metrics related to your health:</p>
+                        <p>Longevity represents life expectancy. The average life expectancy is estimated at 73. However, with frequent activity we can expect the life expectancy to rise. This new life expectancy is listed under 'Earned'.</p>
+                        <p>Mobility is measured using a scale from 1 to 12. A mobility score of 12 is the highest attainable, and reflects exceptional fitness. Conversely, a score of 1 conveys a low level of activity.</p>
+                        <p>Wellbeing is a combination of the two other measures. This helps to estimate the overall happiness. It ranges from a score of 0% to 100%.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group" style="border-bottom:1px dotted black;">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseSix">
+                      Environmental Dashboard
+                    </a>
+                  </div>
+                  <div id="collapseSix" class="accordion-body collapse" style="height: 0px; ">
+                    <div class="accordion-inner">
+                        <p>The environmental dashboard illustrates how the user's activities have helped reduce carbon dioxide emissions. The dashboard shows the carbon saving from avoiding each mode of transport as well as the total from all activities. Furthermore, the total carbon emissions avoided by all users of the site is presented at the bottom of the page.</p>
+                        <p>For each 10kg of carbon emission savings, users will be awarded 1 More Life Token (MLT). MLT tokens represent an offset of carbon output and could enable companies and employers to offset the carbon footprint of their business. As a result, these tokens could become valuable assets. The intention is to eventually enable the exchange of these tokens on a live market.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group" style="border-bottom:1px dotted black;">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseSeven">
+                      Wealth Dashboard
+                    </a>
+                  </div>
+                  <div id="collapseSeven" class="accordion-body collapse" style="height: 0px; ">
+                    <div class="accordion-inner">
+                        <p>The wealth dashboard shows the net amounts (payments - withdrawals) the user has put into each portfolio. The dashbaord also presents the current value for each of the portfolios. Given the low interest rate environment the cash portfolio will have a constant value. However, the Health Tech and ESG portfolios are both subject to potential capital gains (or losses). As a result the investment portfolios mark an opportunity for the user to maximise their potential gains from engaging in cost-saving activities. To better understand the performance of both the investment portfolios, the user can click on the green 'Analysis' button.</p>
+                        <p>The dashboard also provides a graphical representation of the net payments into each of the portfolios. This allows the user to monitor the timing and size of their payments or withdrawals. The user can also click on the series labels in the legend to toggle that series on or off.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="col-md-6">
+            <h4>- Using the Analysis Page -</h4>
+            <div class="accordion3" id="accordion4">
+                <div class="accordion-group" style="border-top:1px dotted black;border-bottom:1px dotted black;">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapseEight">
+                      Data Table
+                    </a>
+                  </div>
+                  <div id="collapseEight" class="accordion-body in collapse" style="height: auto; ">
+                    <div class="accordion-inner">
+                        <p>The data table provides cursory information regarding the most up-to-date performance of the portfolio and the individual investments. It shows both the current price and percentage change in price over the last day.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group" style="border-bottom:1px dotted black;">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapseNine">
+                      Portfolio Value Chart
+                    </a>
+                  </div>
+                  <div id="collapseNine" class="accordion-body collapse" style="height: 0px; ">
+                    <div class="accordion-inner">
+                        <p>To track how an investment in either the ESG or health tech portfolio has performed over time, we display how the value of the investment has changed over time.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group" style="border-bottom:1px dotted black;">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapseTen">
+                      Returns vs Benchmark Line Chart
+                    </a>
+                  </div>
+                  <div id="collapseTen" class="accordion-body collapse" style="height: 0px; ">
+                    <div class="accordion-inner">
+                        <p>We also illustrate how the portfolio or investment has performed relative to a benchmark. The benchmark we use is the S&P500, which is formed from a market-weighted average of the 500 largest publicly traded companies in the US. To make this comparison, we look at the percentage returns of the portfolio rather than on the absolute price or value.</p>
+                        <p>We can also isolate just the portfolio return series by clicking on the S&P500 button in the legend.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group" style="border-bottom:1px dotted black;">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapseEleven">
+                      Composition of Portfolio
+                    </a>
+                  </div>
+                  <div id="collapseEleven" class="accordion-body collapse" style="height: 0px; ">
+                    <div class="accordion-inner">
+                        <p>We show the relative value of each of our investments in the portfolio using a pie chart labelled ‘Composition of Portfolio’. We can hover over each slice of the pie to find out the overall value of our holdings in that particular investment.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group" style="border-bottom:1px dotted black;">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapseTwelve">
+                      All-Time Returns Bar Chart
+                    </a>
+                  </div>
+                  <div id="collapseTwelve" class="accordion-body collapse" style="height: 0px; ">
+                    <div class="accordion-inner">
+                        <p>Our final graph is entitled ‘All-Time Returns Bar Chart’. The chart shows the overall returns on each of our investments from the inception of the portfolio in descending order. This gives us a good idea what might be driving the performance of our portfolio when looked at in conjunction with the portfolio composition.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

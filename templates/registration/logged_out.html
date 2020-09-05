@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<div class="container" style="margin-top:10%;">
+  <div class="row justify-content-center">
+      <div class="col-6 text-center">
+        <h4 style="padding:5%;">Successfully Logged Out!</h4>
+        <a class="btn btn-primary" href="{% url 'login'%}" role="button">Login</a>
+      </div>
+  </div>
+</div>
+
+{% endblock %}

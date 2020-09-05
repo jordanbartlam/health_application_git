@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Delete Withdrawal #{{object.id}}</h5>
+    </div>
+    <div class="card-body">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="alert alert-warning" role="alert">
+                Are you sure you want to delete this withdrawal of <strong>£{{withdrawal.amount_withdrawn}}</strong>?
+            </div>
+            <input type="submit" value="Yes, delete." class="btn btn-danger">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

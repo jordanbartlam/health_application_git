@@ -1,0 +1,48 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+    <h1 style="margin-top:2%;margin-left:10%;">My Activities</h1><br>
+
+    {% if activity_list %}
+    <table class="table">
+        <tr>
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col" style="text-align:center;">Date</th>
+                    <th scope="col" style="text-align:center;">Activity</th>
+                    <th scope="col" style="text-align:center;">Time</th>
+                    <th scope="col" style="text-align:center;">Distance</th>
+                    <th scope="col" style="text-align:center;">Mode Avoided</th>
+                    <th scope="col" style="text-align:center;">Amount Saved</th>
+                    <th scope="col" style="text-align:center;">Paid</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for activity in activity_list %}
+                <tr>
+                    <td style="text-align:center;">{{activity.date}}</td>
+                    <td style="text-align:center;">{{ activity.get_activity_display }}</td>
+                    <td style="text-align:center;">{{ activity.convert_time }}</td>
+                    <td style="text-align:center;">{{ activity.distance }}km</td>
+                    <td style="text-align:center;">{{ activity.get_travel_avoided_display }}</td>
+                    <td style="text-align:center;">£{{ activity.amount_saved }}</td>
+                    <td style="text-align:center;">{{ activity.get_paid_display }}</td>
+                    <td><a class="btn btn-primary btn-sm" href="{% url 'activity_update' activity.id %}" role="button">Update</a></td>
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'activity_delete' activity.id %}" role="button">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </tr>
+    </table>
+    {% else %}
+        <p style="margin-left:10%;">No activities have been created yet.</p>
+    {% endif %}
+
+    <div style="margin-left:10%;margin-top:7%;">
+        <a class="btn btn-success btn-lg" href="{% url 'activity_create' %}" role="button">Add New Activity</a>
+    </div>
+
+{% endblock %}

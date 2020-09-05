@@ -1,0 +1,65 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1 class="text-center" style="padding:5%;">Environmental Dashboard</h1>
+
+<table class="table table-borderless table-hover">
+    <tr>
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" style="text-align:center;">Mode of Travel</th>
+                <th scope="col" style="text-align:center;">Distance Avoided (Km)</th>
+                <th scope="col" style="text-align:center;">Carbon Equivalent kg of CO2</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for travel_avoided, distance in activity_dict.items %}
+            <tr>
+                <td style="text-align:center;">{{travel_avoided}}</td>
+                <td style="text-align:center;">{{distance}}</td>
+                {% load portfolio_extras %}
+                <td style="text-align:center;">{{emissions_dict|get_item:travel_avoided}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot class="table-warning" style="border-top:2px solid black; border-bottom:2px solid black;">
+            <tr>
+                <td style="text-align:center;"><strong>TOTAL</strong></td>
+                <td style="text-align:center;"><strong>{{total_distance}}km</strong></td>
+                <td style="text-align:center;"><strong>{{total_emissions_saved}}kg</strong></td>
+            </tr>
+        </tfoot>
+    </tr>
+</table>
+
+<div class="container-fluid" style="margin-top:7%;">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card" style="background-color:#abebff;border:2px solid black;">
+            <div class="card-body">
+                {% load static %}
+                <img src="{% static 'images/green.svg' %}" width="50" height="50" alt="environment">
+                <br>
+                <br>
+                <h2>{{all_total_emissions_saved}}kg</h2>
+                <p>in carbon emissions saved by users of the site.</p>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card" style="background-color:#fffca8;border:2px solid black;">
+            <div class="card-body">
+                {% load static %}
+                <img src="{% static 'images/tokens.svg' %}" width="50" height="50" alt="tokens">
+                <br>
+                <br>
+                <h2>More Life Tokens: {{MLT_tokens}}</h2>
+                <small>(1 MLT Token per 10kg of carbon emissions saved)</small>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

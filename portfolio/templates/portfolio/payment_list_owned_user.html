@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+    <h1 style="margin-top:2%;margin-left:10%;">My Payments</h1><br>
+
+    {% if payment_list %}
+    <table class="table">
+        <tr>
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col" style="text-align:center;">Date</th>
+                    <th scope="col" style="text-align:center;">Amount</th>
+                    <th scope="col" style="text-align:center;">Activity</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in payment_list %}
+                <tr>
+                    <td style="text-align:center;">{{payment.date}}</td>
+                    <td style="text-align:center;">£{{payment.amount_paid}}</td>
+                    <td style="text-align:center;">{{payment.activity}}</td>
+                    <td><a class="btn btn-primary btn-sm" href="{% url 'payment_update' payment.id %}" role="button">Update</a></td>
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'payment_delete' payment.id %}" role="button">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </tr>
+    </table>
+    {% else %}
+        <p style="margin-left:10%;">No payments have been created yet.</p>
+    {% endif %}
+
+    <div style="margin-left:10%;margin-top:7%;">
+        <a class="btn btn-success btn-lg" href="{% url 'payment_create' %}" role="button">Add New Payment</a>
+    </div>
+
+{% endblock %}

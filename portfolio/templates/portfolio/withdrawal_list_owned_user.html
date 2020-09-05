@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+    <h1 style="margin-top:2%;margin-left:10%;">My Withdrawals</h1><br>
+
+    {% if withdrawal_list %}
+    <table class="table">
+        <tr>
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col" style="text-align:center;">Date</th>
+                    <th scope="col" style="text-align:center;">Amount Withdrawn (£)</th>
+                    <th scope="col" style="text-align:center;">Portfolio</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for withdrawal in withdrawal_list %}
+                <tr>
+                    <td style="text-align:center;">{{withdrawal.date}}</td>
+                    <td style="text-align:center;">{{withdrawal.amount_withdrawn}}</td>
+                    <td style="text-align:center;">{{withdrawal.get_portfolio_display}}</td>
+                    <td><a class="btn btn-primary btn-sm" href="{% url 'withdrawal_update' withdrawal.id %}" role="button">Update</a></td>
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'withdrawal_delete' withdrawal.id %}" role="button">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </tr>
+    </table>
+    {% else %}
+        <p style="margin-left:10%;">No withdrawals have been created yet.</p>
+    {% endif %}
+
+    <div style="margin-left:10%;margin-top:7%;">
+        <a class="btn btn-success btn-lg" href="{% url 'withdrawal_create' %}" role="button">Add New Withdrawal</a>
+    </div>
+
+{% endblock %}

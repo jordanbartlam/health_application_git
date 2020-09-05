@@ -1,0 +1,110 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1 class="text-center" style="padding:2%;">Wealth Dashboard</h1>
+
+<table class="table table-borderless table-hover">
+    <tr>
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" style="text-align:center;">Portfolio</th>
+                <th scope="col" style="text-align:center;">Net Amount Purchased (£)</th>
+                <th scope="col" style="text-align:center;">Current Value (£)</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align:center;">Cash</td>
+                <td style="text-align:center;">{{cash_net_paid}}</td>
+                <td style="text-align:center;">{{cash_net_paid}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">Health Tech</td>
+                <td style="text-align:center;">{{health_net_paid}}</td>
+                <td style="text-align:center;">{{health_value}}</td>
+                <td>{% if health_value > 0 %}<a class="btn btn-success btn-sm" href="{% url 'healthfund_analysis' %}" role="button">Analysis</a>{% endif %}</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">ESG</td>
+                <td style="text-align:center;">{{ESG_net_paid}}</td>
+                <td style="text-align:center;">{{ESG_value}}</td>
+                <td>{% if ESG_value > 0 %}<a class="btn btn-success btn-sm" href="{% url 'esgfund_analysis' %}" role="button">Analysis</a>{% endif %}</td>
+            </tr>
+        </tbody>
+        <tfoot class="table-warning" style="border-top:2px solid black; border-bottom:2px solid black;">
+            <tr>
+                <td style="text-align:center;"><strong>TOTAL</strong></td>
+                <td style="text-align:center;"><strong>£{{total_net_paid}}</strong></td>
+                <td style="text-align:center;"><strong>£{{total_value}}</strong></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </tr>
+</table>
+
+<div class="container-fluid" style="margin-top:5%;">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card" style="padding:2%;">
+                <h6 class="card-title text-center">Net Payments into Each Portfolio</h6>
+                <canvas id="cash_balance_chart"></canvas>
+                <p class="card-text text-center"><small class="text-muted">Tip: Click on the series labels to toggle them on or off!</small></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+ benchmarkChart = new Chart(document.getElementById("cash_balance_chart"), {
+        type: 'line',
+        data: {
+            labels: {{total_dates|safe}},
+            datasets: [
+                {
+                    label: "Cash",
+                    fill: true,
+                    borderColor: 'blue',
+                    backgroundColor: 'blue',
+                    pointRadius: 1,
+                    borderWidth: 2,
+                    data: {{cash_net_paid_list|safe}}
+                }, {
+                    label: "ESG",
+                    fill: true,
+                    borderColor: "red",
+                    backgroundColor: 'red',
+                    pointRadius: 1,
+                    borderWidth: 2,
+                    data: {{ESG_net_paid_list|safe}}
+                }, {
+                    label: "Health",
+                    fill: true,
+                    borderColor: "green",
+                    backgroundColor: 'green',
+                    pointRadius: 1,
+                    borderWidth: 2,
+                    data: {{health_net_paid_list|safe}}
+                }, {
+                    label: "Total",
+                    fill: true,
+                    borderColor: "orange",
+                    backgroundColor: 'orange',
+                    pointRadius: 1,
+                    borderWidth: 2,
+                    data: {{total_net_paid_list|safe}}
+                }
+            ]
+        },
+        options: {}
+ });
+
+</script>
+
+
+
+
+{% endblock %}
