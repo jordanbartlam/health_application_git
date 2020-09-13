@@ -1,3 +1,4 @@
+dateutil
 dj-database-url==0.5.0
 Django==3.0.8
 django-countries==6.1.3
