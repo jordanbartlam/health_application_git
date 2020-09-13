@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from .models import Profile, Activity, Payment, Withdrawal
+from django.db.models import Sum
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import Http404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -11,6 +12,7 @@ from .forms import SignUpForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import numpy as np
+from dateutil.relativedelta import relativedelta
 
 
 # Modules for data analysis:
@@ -74,10 +76,36 @@ def health(request):
         else:
             longevity_expected = 78
 
+    # Find the average weekly time for each month
+    if activities:
+        weekly_exercise = {}
+        date_counter = last_activity.date - relativedelta(months=6)
+        while date_counter < last_activity.date:
+            previous_date_counter = date_counter
+            date_counter = date_counter + relativedelta(weeks=1)
+            relevent_activities = activities.filter(date__range=[previous_date_counter, date_counter])
+            weekly_hours_dict = relevent_activities.aggregate(weekly_hours=Sum('time'))
+            print(weekly_hours_dict)
+            if weekly_hours_dict['weekly_hours'] == None:
+                weekly_hours_dict['weekly_hours'] = datetime.timedelta()
+            week_date = previous_date_counter
+            weekly_exercise[week_date] = round(weekly_hours_dict.get('weekly_hours', datetime.timedelta()).total_seconds()/3600,2)
+
+    else:
+        weekly_exercise = {}
+
+    # Get lists for the months and the hours of activity done for each
+    weeks = [str(week) for week in weekly_exercise.keys()]
+    weekly_exercise_time = [time for time in weekly_exercise.values()]
+    print(weeks)
+    print(weekly_exercise_time)
+
+
     # Find the total activity time
     total_time = datetime.timedelta()
     for activity in activities:
         total_time += activity.time
+    cleaned_total_time = int(total_time.total_seconds()/3600)
 
     # Find average weekly exercise
     if activities:
@@ -100,6 +128,11 @@ def health(request):
     activity_dict = {}
     for activity in activities:
         activity_dict[activity.activity] = activity_dict.get(activity.activity, datetime.timedelta()) + activity.time
+    cleaned_activity_dict = activity_dict.copy()
+
+    # Get lists for the activities performed and the hours done for each
+    activities_performed = [activity for activity in cleaned_activity_dict.keys()]
+    time_performed = [round(time.total_seconds()/3600, 2) for time in cleaned_activity_dict.values()]
 
     # Convert this into average weekly hours for each type of exercise
     activity_dict.update((activity, time//weeks_between) for activity, time in activity_dict.items())
@@ -116,6 +149,12 @@ def health(request):
         'mobility': mobility,
         'wellbeing': wellbeing,
         'longevity_radius': longevity_radius,
+        'cleaned_total_time': cleaned_total_time,
+        'weeks': weeks,
+        'weekly_exercise_time': weekly_exercise_time,
+        'activities_performed': activities_performed,
+        'time_performed': time_performed,
+
     }
 
     return render(request, 'portfolio/health.html', context=context)
