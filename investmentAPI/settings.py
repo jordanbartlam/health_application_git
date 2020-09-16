@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cm=v8ibk1pu5_r65)vk3ylt%ch9&=4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['life-account.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['life-account.herokuapp.com', '127.0.0.1', 'lifeaccount.co.uk', 'www.lifeaccount.co.uk']
 
 # Application definition
 
