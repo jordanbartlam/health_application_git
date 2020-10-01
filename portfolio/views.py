@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
-from .models import Profile, Activity, Payment, Withdrawal
+from .models import Profile, Activity, Payment, Withdrawal, MLT_bought, MLT_retired, MLT_sold
 from django.db.models import Sum
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import Http404
@@ -8,11 +8,13 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import numpy as np
 from dateutil.relativedelta import relativedelta
+from .forms import SignUpForm
+from django.utils import timezone
+
 
 
 # Modules for data analysis:
@@ -85,7 +87,6 @@ def health(request):
             date_counter = date_counter + relativedelta(weeks=1)
             relevent_activities = activities.filter(date__range=[previous_date_counter, date_counter])
             weekly_hours_dict = relevent_activities.aggregate(weekly_hours=Sum('time'))
-            print(weekly_hours_dict)
             if weekly_hours_dict['weekly_hours'] == None:
                 weekly_hours_dict['weekly_hours'] = datetime.timedelta()
             week_date = previous_date_counter
@@ -97,9 +98,7 @@ def health(request):
     # Get lists for the months and the hours of activity done for each
     weeks = [str(week) for week in weekly_exercise.keys()]
     weekly_exercise_time = [time for time in weekly_exercise.values()]
-    print(weeks)
-    print(weekly_exercise_time)
-
+    total_hours_six_months = int(sum(weekly_exercise_time))
 
     # Find the total activity time
     total_time = datetime.timedelta()
@@ -154,15 +153,21 @@ def health(request):
         'weekly_exercise_time': weekly_exercise_time,
         'activities_performed': activities_performed,
         'time_performed': time_performed,
+        'total_hours_six_months': total_hours_six_months,
 
     }
 
     return render(request, 'portfolio/health.html', context=context)
 
+
+@login_required
 def environmental(request):
     """View function for health portfolio page of site."""
     activities = Activity.objects.filter(owner=request.user)
     all_activities = Activity.objects.all()
+    MLT_purchases = MLT_bought.objects.filter(owner=request.user)
+    MLT_sales = MLT_sold.objects.filter(owner=request.user)
+    MLT_retires = MLT_retired.objects.filter(owner=request.user)
 
     # Find the total distance avoided by each mode of transport.
     activity_dict = {}
@@ -198,7 +203,17 @@ def environmental(request):
     all_total_emissions_saved = round(all_total_emissions_saved, 2)
 
     # Calculate MLT Tokens:
-    MLT_tokens = int(total_emissions_saved // 10)
+    MLT_tokens = int(total_emissions_saved // 12)
+    total_MLT_bought = 0
+    for purchase in MLT_purchases:
+        total_MLT_bought += int(purchase.amount)
+    total_MLT_sold = 0
+    for sale in MLT_sales:
+        total_MLT_sold += int(sale.amount)
+    total_MLT_retired = 0
+    for retire in MLT_retires:
+        total_MLT_retired += int(retire.amount)
+    MLT_tokens = MLT_tokens + total_MLT_bought - total_MLT_sold - total_MLT_retired
 
     context = {
         'emissions_dict': emissions_dict,
@@ -401,10 +416,6 @@ def wealth(request):
     total_net_paid = round(float(cash_net_paid) + float(health_net_paid) + float(ESG_net_paid), 2)
 
     total_df = pd.concat([cash_df, ESG_df, health_df]).fillna(0)
-    print(total_df)
-    print(total_df['Cash Net Payment'])
-    print(total_df['ESG Net Payment'])
-    print(total_df['Health Net Payment'])
     total_df['Total Net Payment'] = total_df['Cash Net Payment'] + total_df['ESG Net Payment'] + total_df['Health Net Payment']
     total_df['Total Net Payment'] = total_df['Total Net Payment'].cumsum()
     total_dates = total_df.index.to_list()
@@ -650,3 +661,41 @@ class WithdrawalUpdate(LoginRequiredMixin, UpdateView):
 class WithdrawalDelete(LoginRequiredMixin, DeleteView):
     model = Withdrawal
     success_url = reverse_lazy('my-withdrawals')
+
+
+class TokenBuy(LoginRequiredMixin, CreateView):
+    model = MLT_bought
+    fields = ['amount']
+    success_url = reverse_lazy('environmental')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        price = 0.1
+        amount = form.cleaned_data['amount']
+        value = price * amount
+        Withdrawal.objects.create(date=datetime.date.today(), amount_withdrawn=value, portfolio='CASH', owner=self.request.user)
+        return super().form_valid(form)
+
+class TokenSell(LoginRequiredMixin, CreateView):
+    model = MLT_sold
+    fields = ['amount']
+    success_url = reverse_lazy('environmental')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        price = 0.1
+        amount = form.cleaned_data['amount']
+        value = price * amount
+        # Payment.objects.create(date=timezone.now, activity=None, amount_paid=10.00, portfolio='CASH', owner=self.request.user)
+        p = Payment(date=datetime.date.today(), activity=None, amount_paid=value, portfolio='CASH', owner=self.request.user)
+        p.save()
+        return super().form_valid(form)
+
+class TokenRetire(LoginRequiredMixin, CreateView):
+    model = MLT_retired
+    fields = ['amount']
+    success_url = reverse_lazy('environmental')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)

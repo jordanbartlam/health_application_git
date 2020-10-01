@@ -57,7 +57,7 @@ def update_profile_signal(sender, instance, created, **kwargs):
 
 class Activity(models.Model):
 
-    date = models.DateField(default=timezone.now)
+    date = models.DateField(default=date.today)
 
     ACTIVITIES = (
         ('WALK', 'Walk'),
@@ -69,7 +69,7 @@ class Activity(models.Model):
 
     activity = models.CharField(max_length=30, choices=ACTIVITIES)
     time = models.DurationField(default=timedelta(), help_text='Use format: HH:MM:SS')
-    distance = models.FloatField(default=0, help_text='Kilometers. Leave as 0km if unsure.')
+    distance = models.FloatField(default=0, help_text='Kilometers (1km = 0.6miles). Leave as 0km if unsure.')
 
     TRAVEL = (
         ('BUS', 'Bus'),
@@ -114,8 +114,21 @@ class Activity(models.Model):
         """String for representing the Model object."""
         return f'{self.convert_time()} {self.get_activity_display()} on {self.date}'
 
+class MLT_bought(models.Model):
+    amount = models.PositiveIntegerField(default=0)
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
+class MLT_sold(models.Model):
+    amount = models.PositiveIntegerField(default=0)
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
+class MLT_retired(models.Model):
+    amount = models.PositiveIntegerField(default=0)
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
+
 class Payment(models.Model):
-    date = models.DateField(default=timezone.now)
+    date = models.DateField(default=date.today)
     amount_paid = models.DecimalField(default=0.00, max_digits=6, decimal_places=2, help_text='(£)')
     activity = models.ForeignKey(Activity, on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -133,12 +146,12 @@ class Payment(models.Model):
         return f'£{self.amount_paid} paid on {self.date}'
 
     def save(self, *args, **kwargs):
-        if not self.pk:
+        if (not self.pk) and (self.activity != None):
             Activity.objects.filter(pk=self.activity.id).update(paid='Y')
         super().save(*args, **kwargs)
 
 class Withdrawal(models.Model):
-    date = models.DateField(default=timezone.now)
+    date = models.DateField(default=date.today)
     amount_withdrawn = models.DecimalField(default=0.00, max_digits=6, decimal_places=2, help_text='(£)')
 
     PORTFOLIOS = (

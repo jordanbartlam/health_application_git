@@ -3,6 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from datetime import date, timedelta
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
+
+
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=50)
@@ -45,3 +49,31 @@ class SignUpForm(UserCreationForm):
         fields = ('first_name', 'last_name', 'date_of_birth', 'sex', 'nationality', 'weight', 'job', 'weekly_hours_of_exercise', 'username', 'email', 'password1', 'password2',)
 
 
+# class MLTForm(forms.Form):
+#     amount_purchased = forms.IntegerField(required=False, label='Buy MLT', initial=0)
+#     amount_sold = forms.IntegerField(required=False, label='Sell MLT', initial=0)
+#     amount_retired = forms.IntegerField(required=False, label='Retire MLT', initial=0)
+#
+#     def clean_amount_purchased(self):
+#         data = self.cleaned_data['amount_purchased']
+#
+#         if data < 0:
+#             raise ValidationError(_('Must be either 0 or a positive number.'))
+#
+#         return data
+#
+#     def clean_amount_sold(self):
+#         data = self.cleaned_data['amount_sold']
+#
+#         if data < 0:
+#             raise ValidationError(_('Must be either 0 or a positive number.'))
+#
+#         return data
+#
+#     def clean_amount_retired(self):
+#         data = self.cleaned_data['amount_retired']
+#
+#         if data < 0:
+#             raise ValidationError(_('Must be either 0 or a positive number.'))
+#
+#         return data

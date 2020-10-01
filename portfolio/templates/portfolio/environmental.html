@@ -33,7 +33,7 @@
     </tr>
 </table>
 
-<div class="container-fluid" style="margin-top:7%;margin-bottom:5%;">
+<div class="container-fluid" style="margin-top:4%;margin-bottom:2%;">
     <div class="row justify-content-center">
       <div class="col-md-5">
         <div class="card" style="background-color:#abebff;border:2px solid black;">
@@ -61,5 +61,35 @@
       </div>
     </div>
 </div>
+
+<div class="container-fluid" style="margin-top:1%;margin-bottom:10%;">
+    <div class="row justify-content-center">
+      <div class="col-md-9">
+        <div class="card h-100" style="background-color:#fffca8;border:2px solid black;padding:2%;">
+            <div class="card-body text-center">
+                <h6>More Life Tokens may be bought, sold or retired by users on request at the More Life Pool Price subject to availablility.</h6>
+                <br>
+<!--                <a class="btn btn-success btn-lg" href="{% url 'token_buy' %}" role="button">Buy MLT</a>-->
+<!--                <a class="btn btn-success btn-lg" href="{% url 'token_sell' %}" role="button">Sell MLT</a>-->
+                <a class="btn btn-success btn-lg" href="#" role="button">Buy MLT</a>
+                <a class="btn btn-success btn-lg" href="#" role="button">Sell MLT</a>
+                <a class="btn btn-success btn-lg" href="{% url 'token_retire' %}" role="button">Retire MLT</a>
+                <small>(Until the More Life Pool achieves a minimum size the buy and sell buttons are disabled)</small>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="card h-100" style="background-color:#abebff;border:2px solid black;">
+            <div class="card-body">
+                <h3 class="text-center"><strong>More Life Pool Price</strong></h3>
+                <h2 class="text-center" style="border:solid black 2px; background-color:white;">£0.0001</h2>
+                <small>(Per MLT)</small>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
 
 {% endblock %}

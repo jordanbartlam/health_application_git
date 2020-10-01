@@ -16,6 +16,10 @@ urlpatterns = [
     path('payment/<int:pk>/update/', views.PaymentUpdate.as_view(), name='payment_update'),
     path('payment/<int:pk>/delete/', views.PaymentDelete.as_view(), name='payment_delete'),
 
+    path('token/buy/', views.TokenBuy.as_view(), name='token_buy'),
+    path('token/sell/', views.TokenSell.as_view(), name='token_sell'),
+    path('token/retire/', views.TokenRetire.as_view(), name='token_retire'),
+
     path('mywithdrawals/', views.WithdrawalByUserListView.as_view(), name='my-withdrawals'),
     path('withdrawal/create/', views.WithdrawalCreate.as_view(), name='withdrawal_create'),
     path('withdrawal/<int:pk>/update/', views.WithdrawalUpdate.as_view(), name='withdrawal_update'),

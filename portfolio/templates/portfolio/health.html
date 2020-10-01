@@ -30,8 +30,11 @@
                         <img src="{% static 'images/runner.svg' %}" width="60" height="60" alt="exercise">
                         <br>
                         <br>
-                        <h2>{{cleaned_total_time}} hours</h2>
-                        <p>of total exercise completed.</p>
+                        <h4><u>Amount of Exercise Completed</u></h4>
+                        <br>
+                        <h4>Total: <strong>{{cleaned_total_time}}</strong> hours</h4>
+                        <hr>
+                        <h4>Last 6 Months: <strong>{{total_hours_six_months}}</strong> hours</h4>
                     </div>
                 </div>
             </div>
