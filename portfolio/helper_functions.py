@@ -109,46 +109,46 @@ class Prices:
 # HEALTH PORTFOLIO
 def calc_longevity(weekly_activity):
     additional_years = 0
-    # 0-2 hours
-    if weekly_activity <= datetime.timedelta(hours=2):
+    # 0-0.5 hours
+    if weekly_activity <= datetime.timedelta(hours=0.25):
         return additional_years
-    # 2-3 hours
-    elif weekly_activity <= datetime.timedelta(hours=3):
+    # 0.5-1 hours
+    elif weekly_activity <= datetime.timedelta(hours=0.5):
         additional_years = 1
         return additional_years
-    # 3-4 hours
-    elif weekly_activity <= datetime.timedelta(hours=4):
+    # 1-1.5 hours
+    elif weekly_activity <= datetime.timedelta(hours=1):
         additional_years = 2
         return additional_years
-    # 4-5 hours
-    elif weekly_activity <= datetime.timedelta(hours=5):
+    # 1.5-2 hours
+    elif weekly_activity <= datetime.timedelta(hours=1.5):
         additional_years = 3
         return additional_years
-    # 5-6 hours
-    elif weekly_activity <= datetime.timedelta(hours=6):
+    # 2-2.75 hours
+    elif weekly_activity <= datetime.timedelta(hours=2):
         additional_years = 4
         return additional_years
-    # 6-7 hours
-    elif weekly_activity <= datetime.timedelta(hours=7):
+    # 2.75-3.75 hours
+    elif weekly_activity <= datetime.timedelta(hours=2.75):
         additional_years = 5
         return additional_years
-    # 7-8 hours
-    elif weekly_activity <= datetime.timedelta(hours=8):
+    # 3.75-4.75 hours
+    elif weekly_activity <= datetime.timedelta(hours=3.5):
         additional_years = 6
         return additional_years
-    # 9-10 hours
-    elif weekly_activity <= datetime.timedelta(hours=9):
+    # 4.75-6 hours
+    elif weekly_activity <= datetime.timedelta(hours=4.5):
         additional_years = 7
         return additional_years
-    # 10-11 hours
-    elif weekly_activity <= datetime.timedelta(hours=10):
+    # 6-7.5 hours
+    elif weekly_activity <= datetime.timedelta(hours=5.75):
         additional_years = 8
         return additional_years
-    # 11-12 hours
-    elif weekly_activity <= datetime.timedelta(hours=11):
+    # 7.5-9 hours
+    elif weekly_activity <= datetime.timedelta(hours=7):
         additional_years = 9
         return additional_years
-    # 12+ hours
+    # 9+ hours
     else:
         additional_years = 10
         return additional_years
@@ -170,46 +170,46 @@ def calc_mobility(activity_dict):
 
     mobility_index = 1
     # 0-4 hours
-    if total_mobility <= datetime.timedelta(hours=3):
+    if total_mobility <= datetime.timedelta(hours=0.25):
         return mobility_index
     # 4-6 hours
-    elif total_mobility <= datetime.timedelta(hours=6):
+    elif total_mobility <= datetime.timedelta(hours=0.5):
         mobility_index = 2
         return mobility_index
     # 6-8 hours
-    elif total_mobility <= datetime.timedelta(hours=10):
+    elif total_mobility <= datetime.timedelta(hours=1):
         mobility_index = 3
         return mobility_index
     # 8-10 hours
-    elif total_mobility <= datetime.timedelta(hours=15):
+    elif total_mobility <= datetime.timedelta(hours=2):
         mobility_index = 4
         return mobility_index
     # 10-12 hours
-    elif total_mobility <= datetime.timedelta(hours=21):
+    elif total_mobility <= datetime.timedelta(hours=3.25):
         mobility_index = 5
         return mobility_index
     # 12-14 hours
-    elif total_mobility <= datetime.timedelta(hours=27):
+    elif total_mobility <= datetime.timedelta(hours=4.75):
         mobility_index = 6
         return mobility_index
     # 14-16 hours
-    elif total_mobility <= datetime.timedelta(hours=34):
+    elif total_mobility <= datetime.timedelta(hours=6.5):
         mobility_index = 7
         return mobility_index
     # 16-18 hours
-    elif total_mobility <= datetime.timedelta(hours=42):
+    elif total_mobility <= datetime.timedelta(hours=8.5):
         mobility_index = 8
         return mobility_index
     # 18-20 hours
-    elif total_mobility <= datetime.timedelta(hours=51):
+    elif total_mobility <= datetime.timedelta(hours=10.75):
         mobility_index = 9
         return mobility_index
     # 20-22 hours
-    elif total_mobility <= datetime.timedelta(hours=61):
+    elif total_mobility <= datetime.timedelta(hours=13.25):
         mobility_index = 10
         return mobility_index
     # 22-24 hours
-    elif total_mobility <= datetime.timedelta(hours=72):
+    elif total_mobility <= datetime.timedelta(hours=16):
         mobility_index = 11
         return mobility_index
     # 24+ hours

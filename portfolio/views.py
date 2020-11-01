@@ -119,9 +119,14 @@ def health(request):
         weekly_activity = request.user.profile.weekly_hours_of_exercise
         weeks_between = 1
     elif weeks_between >= 14:
-        weekly_activity = total_time // weeks_between
+        if weeks_between >= 26:
+            weekly_activity = datetime.timedelta(hours=sum(weekly_exercise_time))/26
+        else:
+            weekly_activity = total_time // weeks_between
     else:
         weekly_activity = (request.user.profile.weekly_hours_of_exercise + (total_time // weeks_between)) // 2
+    print(weeks_between, weekly_activity)
+
 
     # The number of hours of exercise attributed to each form of exercise
     activity_dict = {}
